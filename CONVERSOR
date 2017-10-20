@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+ 
+//Entrando com o valor 12.5;
+float convertBin(float n,int inteiro){
+		char binInt[33];
+		char binDec[33];				
+		int i;//contador;
+		int inte;
+	/*
+		for(i=0;i<sizeof(int)*8;i++){  // ESSA PARTE ESTÁ FUNCIONANDO.
+			binInt[i] = ((int )n>>sizeof(int)*8-1-i)&1;
+			printf("%d",binInt[i]);//Coloquei no vetor o valor da parte inteira em binário;
+		
+		}*/
+	
+	n = n - inteiro;//n=0.5;
+	//printf("%d",n);
+		for(i=0;i<33;i++){
+			n=n*2;//n=1.0;
+			if((n-(int)n)!=0){// n=1;(int)n = 1;Enquanto n-(int)n)!=0 for verdadeiro, continuará as interações
+			binDec[i] =(int)n ;// receberá o valor da parte inteira do número
+			printf("%d",binDec[i]);
+			n = n-(int)n;// o novo n será o anterior menos a parte inteira;
+		}
+		else{
+			binDec[i] = (int)n; 
+		}
+	}
+}
+ int main(){
+	float n;
+	int inteiro = (int)n;
+	int i;
+	
+	scanf("%f",&n);
+	convertBin(n,inteiro);
+	
+	return 0;
+
+}
