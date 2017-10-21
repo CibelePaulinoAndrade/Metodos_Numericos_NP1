@@ -49,7 +49,7 @@ void convertBin(float n){
 	for(i=0;i<fimvetor1;i++){
 			printf("%d",binInt[i]); //Atenção nesse detalhe, eu to printando de maneira
 		}				//certa, mas não sei se isso é aceitável.
-	printf(",");				//No caso só faltaria concatenar os vetores.
+	printf(",");				//No caso só faltaria concatenar os vetores..
 	for(i=0;i<=fimvetor2-1;i++){
 			printf("%d",binDec[i]);
 		}
