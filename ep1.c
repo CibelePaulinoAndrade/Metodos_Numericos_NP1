@@ -4,7 +4,7 @@
 #include<locale.h>
 //1º Exercício-programa de Métodos Numéricos
 //Prof. Glauber Cintra
-//Equipe: Cibele Paulino, Narcélio Lima, Gabriel, Raimundo.
+//Equipe: Cibele Paulino, Narcelio Lima, Gabriel Leal, Raimundo.
 
 //Começa tópico 1 - Conversão
 void conversao(){
@@ -15,8 +15,69 @@ void conversao(){
 //Termina tópico 1 - Conversão
 
 //Começa tópico 2 - Sistema Linear 
-//FALTA COLOCAR O LANCE DAS LINHAS E COLUNAS (ATENÇÃO!!!!)
-double gauss_seidel(int indice, int *multiplicadores, double *valores, int tamVal ){
+int verifica_linha(int i,int j,double M[i][j]){
+	/*Sendo i a linha e j a coluna, o método soma |aij| se i!=j, caso seja igual ele pula para a proxima interação
+	, ao final do programa ele retorna um valor 1 caso o critério das linhas seja satisfeito, e 0 caso não haja satisfação do critério.*/
+	int n=i;
+	i=0;
+	j=0;
+	double somatorio = 0; // variável para acumular os valores de |aij|
+	
+	while(1){
+		if(i!=j){
+			somatorio += abs(M[i][j]);
+		}
+		if(j==n-1){
+			if(abs(M[i][i])<=somatorio){ 	//Verifica se o |aii|>somatorio, caso não seja em algumas das linhas ele já quebra o laço pois já não satisfaz
+				return 0;		// o critério das linhas.
+			}
+			else if(i==n-1){
+				return 1;
+			}
+			else{
+				i++;
+				somatorio = 0;
+				j=0;
+			}
+		}
+		else{
+			j++;
+		}
+	}
+}//fim verifica_linha
+	
+int verifica_coluna(int i,int j,double M[i][j]){
+	/*Sendo i a linha e j a coluna, o método soma |aij| se i!=j, caso seja igual ele pula para a proxima interação
+	, ao final do programa ele retorna um valor 1 caso o critério das colunas seja satisfeito, e 0 caso não haja satisfação do critério.*/
+	int n=i;
+	i=0;
+	j=0;
+	double somatorio = 0; // variável para acumular os valores de |aij|
+	
+	while(1){
+		if(i!=j){
+			somatorio += abs(M[i][j]);
+		}
+		if(i==n-1){
+			if(abs(M[j][j])<=somatorio){		//Verifica se o |ajj|>somatorio, caso não seja em algumas das colunas ele já quebra o laço pois já não satisfaz
+				return 0;						// o critério das colunas.
+			}
+			else if(j==n-1){
+				return 1;
+			}
+			else{
+				j++;
+				somatorio = 0;
+				i=0;
+			}
+		}
+		else{
+			i++;
+		}
+	}
+}//fim verifica_coluna
+
+double gauss_seidel(int indice, double *multiplicadores, double *valores, int tamVal ){
 	//Função que recebe o indice (variavél) a ser calculado(da), o endereço de um vetor com os valores de vetor[i], o endereço de um vetor 
 	//com os valores atuais das variavéis e um inteiro com o número de variavéis. Calcula o valor das variavéis utilizando o método interativo 
 	//para resolução de sistemas de equações lineares de Gauss-Seidel. Retorna o valor obtido.
@@ -61,7 +122,7 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 	system("cls");
 	printf("Resultado:\n");
 	for (i=0;i<val;i++){
-		printf("X%d: %.4Le\n", i+1, estAtual[i]);
+		printf("X%d: %9.3lf\n", i+1, estAtual[i]);
 	}
 	printf("\n%d iteracoes realizadas\n\n", interacoes);
 }
@@ -71,7 +132,6 @@ void sistema_linear(){
 	FILE *arq;
 	char arquivo[20];
 	int interacoes = 0;
-	int aux;
 	int val;
 	int i;
 	int j;
@@ -81,15 +141,29 @@ void sistema_linear(){
 	scanf("%s", &arquivo);
 	arq = fopen(arquivo, "r");
 	
+	if(arq == NULL){
+		printf("Arquivo não encontrado");
+		return ;
+	}
+	
 	fscanf(arq, " %d", &val);
-	int vetor [val][val+1];
+	double vetor [val][val+1];
 	
 	for ( i = 0; i<val; i++){
 		for ( j = 0; j<val+1; j++){
-			fscanf(arq, " %d", &aux);
-			vetor[i][j] = aux;
+			fscanf(arq, " %lf", &vetor[i][j]);
 		}
 	}
+	fclose(arq);
+	
+	int criterioLinha = verifica_linha(val,val+1,vetor);
+	int criterioColuna = verifica_coluna(val,val+1,vetor);
+	if(criterioLinha==0&&criterioColuna==0){
+		printf("Nenhum dos criterios foram satisfeitos");
+		return ;
+	}
+	
+	printf("Um dos criterios foram satisfeitos");
 	
 	double estAtual[val];
 	double estAnterior [val];
@@ -149,15 +223,19 @@ void chamar_menu(){
 
 	switch (entradaChr){
 		case 'C':
+		case 'c':
 			conversao();
 			break;
 		case 'S':
+		case 's':
 			sistema_linear();
 			break;
 		case 'E':
+		case 'e':
 			equacao_algebrica();
 			break;
 		case 'F': 
+		case 'f':
 			printf("Até logo\n");
 			break;
 		default:
