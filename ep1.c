@@ -2,24 +2,24 @@
 #include<stdlib.h>
 #include<string.h>
 #include<locale.h>
-//1º Exercício-programa de Métodos Numéricos
+//1Âº ExercÃ­cio-programa de MÃ©todos NumÃ©ricos
 //Prof. Glauber Cintra
-//Equipe: Cibele Paulino, Narcélio Lima, Gabriel, Raimundo.
+//Equipe: Cibele Paulino, NarcÃ©lio Lima, Gabriel, Raimundo.
 
-//Começa tópico 1 - Conversão
+//ComeÃ§a tÃ³pico 1 - ConversÃ£o
 void conversao(){
-	printf("Conversão\n");
+	printf("ConversÃ£o\n");
 	esperar_comando();
 	chamar_menu();
 }
-//Termina tópico 1 - Conversão
+//Termina tÃ³pico 1 - ConversÃ£o
 
-//Começa tópico 2 - Sistema Linear 
-//FALTA COLOCAR O LANCE DAS LINHAS E COLUNAS (ATENÇÃO!!!!)
+//ComeÃ§a tÃ³pico 2 - Sistema Linear 
+//FALTA COLOCAR O LANCE DAS LINHAS E COLUNAS (ATENÃ‡ÃƒO!!!!)
 double gauss_seidel(int indice, int *multiplicadores, double *valores, int tamVal ){
-	//Função que recebe o indice (variavél) a ser calculado(da), o endereço de um vetor com os valores de vetor[i], o endereço de um vetor 
-	//com os valores atuais das variavéis e um inteiro com o número de variavéis. Calcula o valor das variavéis utilizando o método interativo 
-	//para resolução de sistemas de equações lineares de Gauss-Seidel. Retorna o valor obtido.
+	//FunÃ§Ã£o que recebe o indice (variavÃ©l) a ser calculado(da), o endereÃ§o de um vetor com os valores de vetor[i], o endereÃ§o de um vetor 
+	//com os valores atuais das variavÃ©is e um inteiro com o nÃºmero de variavÃ©is. Calcula o valor das variavÃ©is utilizando o mÃ©todo interativo 
+	//para resoluÃ§Ã£o de sistemas de equaÃ§Ãµes lineares de Gauss-Seidel. Retorna o valor obtido.
 	int i;
 	double result;
 	result = 0.0;
@@ -34,10 +34,10 @@ double gauss_seidel(int indice, int *multiplicadores, double *valores, int tamVa
 }
 
 int controle_parada_sistema(int val, double *estAtual, double *estAnterior, int interacoes){
-	//Função que recebe um inteiro referente ao número de variavéis do sistema, o endereço de um vetor com os valores atuais das variavéis,
-	//o endereço de um vetor com os valores anteriores das variavéis e um inteiro com o número de interações que já foram executadas. Verifica se
-	//a variação no valor das variavéis é menor que 10^(-8) ou se 1000 interações já foram executas. Retorna 1 (um) caso as uma das condições 
-	//anteriores seja satisfeita e, 0 (zero), caso contrário.
+	//FunÃ§Ã£o que recebe um inteiro referente ao nÃºmero de variavÃ©is do sistema, o endereÃ§o de um vetor com os valores atuais das variavÃ©is,
+	//o endereÃ§o de um vetor com os valores anteriores das variavÃ©is e um inteiro com o nÃºmero de interaÃ§Ãµes que jÃ¡ foram executadas. Verifica se
+	//a variaÃ§Ã£o no valor das variavÃ©is Ã© menor que 10^(-8) ou se 1000 interaÃ§Ãµes jÃ¡ foram executas. Retorna 1 (um) caso as uma das condiÃ§Ãµes 
+	//anteriores seja satisfeita e, 0 (zero), caso contrÃ¡rio.
 	int i;
 	int controle = 0;
 	for(i=0;i<val;i++){
@@ -54,9 +54,9 @@ int controle_parada_sistema(int val, double *estAtual, double *estAnterior, int 
 }
 
 void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
-	//Função que recebe o endereço de um vetor com os valores atuais das variavéis, um inteiro com o número de interações que foram 
-	//executadas e um inteiro referente ao número de variavéis do sistema. Imprime na tela os valores obtidos para cada variavél e o
-	//número de interações realizadas.
+	//FunÃ§Ã£o que recebe o endereÃ§o de um vetor com os valores atuais das variavÃ©is, um inteiro com o nÃºmero de interaÃ§Ãµes que foram 
+	//executadas e um inteiro referente ao nÃºmero de variavÃ©is do sistema. Imprime na tela os valores obtidos para cada variavÃ©l e o
+	//nÃºmero de interaÃ§Ãµes realizadas.
 	int i;
 	system("cls");
 	printf("Resultado:\n");
@@ -66,8 +66,8 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 	printf("\n%d iteracoes realizadas\n\n", interacoes);
 }
 void sistema_linear(){
-	//Função que lê um arquivo de texto contendo um sistema linear de n equações e n variavéis. Aloca os valores nas variavéis adequadas.
-	//Chama a função para calcular o valor das váriavéis do sistema e a função para imprimir os valores obtidos na tela.
+	//FunÃ§Ã£o que lÃª um arquivo de texto contendo um sistema linear de n equaÃ§Ãµes e n variavÃ©is. Aloca os valores nas variavÃ©is adequadas.
+	//Chama a funÃ§Ã£o para calcular o valor das vÃ¡riavÃ©is do sistema e a funÃ§Ã£o para imprimir os valores obtidos na tela.
 	FILE *arq;
 	char arquivo[20];
 	int interacoes = 0;
@@ -75,6 +75,7 @@ void sistema_linear(){
 	int val;
 	int i;
 	int j;
+	int sair = 1;
 	
 	printf("Digite o nome do arquivo desejado: \n");
 	scanf("%s", &arquivo);
@@ -98,7 +99,7 @@ void sistema_linear(){
 		estAnterior[i]=0.0;
 	}
 	
-	while(1){
+	while(sair){
 		double resultado;
 		interacoes++;
 		for (i=0;i<val;i++){
@@ -107,7 +108,7 @@ void sistema_linear(){
 			estAtual[i]= resultado;
 		}
 		if ((controle_parada_sistema(val, estAtual, estAnterior, interacoes)) == 1){
-			break;
+			sair = 0;
 		}
 	}
 	
@@ -117,16 +118,16 @@ void sistema_linear(){
 	chamar_menu();
 	
 }
-//Termina tópico 2 - Sistemas Lineares
+//Termina tÃ³pico 2 - Sistemas Lineares
 
-//Começa tópico 3 - Equação algébrica
+//ComeÃ§a tÃ³pico 3 - EquaÃ§Ã£o algÃ©brica
 void equacao_algebrica(){
-	printf("Equação Algebrica\n");
+	printf("EquaÃ§Ã£o Algebrica\n");
 	
 	esperar_comando();
 	chamar_menu();
 }
-//Termina tópico 3 - Equação algébrica
+//Termina tÃ³pico 3 - EquaÃ§Ã£o algÃ©brica
 
 void esperar_comando(){
 	char entradaChr;
@@ -135,15 +136,15 @@ void esperar_comando(){
 	
 }
 void chamar_menu(){
-	//Função chama o menu da aplicação, solicita a opção desejada, ler a opção escolhida pelo usuário e 
-	//direciona para essa opção através do switch case.
+	//FunÃ§Ã£o chama o menu da aplicaÃ§Ã£o, solicita a opÃ§Ã£o desejada, ler a opÃ§Ã£o escolhida pelo usuÃ¡rio e 
+	//direciona para essa opÃ§Ã£o atravÃ©s do switch case.
 	char entradaChr;
 	
 	system("cls");
 	setlocale(LC_ALL, "Portuguese");
 	
 	printf("Menu Principal\n");
-	printf("C - Conversão\nS - Sistema Linear\nE - Equação Algébrica\nF - Finalizar\n");
+	printf("C - ConversÃ£o\nS - Sistema Linear\nE - EquaÃ§Ã£o AlgÃ©brica\nF - Finalizar\n");
 	scanf (" %c", &entradaChr);                                                               
 
 	switch (entradaChr){
@@ -157,10 +158,10 @@ void chamar_menu(){
 			equacao_algebrica();
 			break;
 		case 'F': 
-			printf("Até logo\n");
+			printf("AtÃ© logo\n");
 			break;
 		default:
-			printf("Alternativa inválida.");
+			printf("Alternativa invÃ¡lida.");
 			esperar_comando();
 			chamar_menu();
 	}
