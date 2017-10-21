@@ -1,0 +1,50 @@
+#include<math.h>
+#include<stdio.h>
+#include<stdlib.h>
+//Teorema de Lagrange
+
+
+
+int main(){
+	float p1[10],p2[10],p3[10],p4[10];
+	float x;
+	int i,j;
+	int g;//grau do polinômio que será escaneado para determinar o tamanho do vetor;
+	int n=g;//Grau do polinômio;(ok)
+	float an;//índice do termo de maior grau(ok)
+	int k;//maior indice dos coeficientes negativos;módulo do coeficiente mais negativo do polinômio;
+	float b;//
+	float maior;
+	
+	printf("Qual o grau do polinomio que deseja:  ",g);
+	scanf("%d",&g);
+	for(i=g;i>=0;i--){
+		printf("Digite o coeficiente do termo de indice %d:   ",i,x);
+		scanf("%f",&x);		
+		p1[i]=x;
+
+	}
+	an=p1[g];//Calculo an;
+	
+	for(i=g;i>=0;i--){//Calculo do K;
+		if(p1[i]<0){
+			k=i;
+			i=0;
+		}
+	
+	}
+	for(i=g;i>=0;i--){// Cálculo do B;
+		if(p[i]<0){
+			maior=p[i];
+					
+		}
+		else{
+			i--;
+		}
+	
+}
+printf("%d",b);
+
+return 0;
+
+}
