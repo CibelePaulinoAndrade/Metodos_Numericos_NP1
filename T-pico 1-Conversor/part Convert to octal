@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+//12.5===> octa = partInt=12
+float convertOcta(float n,int inteiro){
+		char octInt[33];
+		char octDec[33];
+		int i=0 ;
+		
+		
+		
+		while( ( (int)n % 8 )<= 8){//se o resto da divisão for menor igual a 8
+		
+			octInt[i] = ( (int)n % 8 );// vetor octa recebrá o resta da divisão da parte inteira do número por 8
+			printf("%d", octInt[i] );		
+			i++;	
+	}	
+	
+	
+		while( (n-(int)n) != 0 ){ //Esse n-(int)n é a parte fracionária; enquanto a parte fracionária for diferente de zero faremos essa ação
+			octDec[i] = (int)(n*8);//Então, o vetor pegará a parte inteira multiplicada por 2;
+			printf ("%d" , octDec[i] ) ;  
+			n = n-(int)n ;//Novo n;
+			i++;
+
+	}
+}
+
+
+
+
+ int main(){
+	float n;
+	int inteiro = (int)n;
+	int i;
+	
+	scanf("%f",&n);
+	convertOcta(n,inteiro);
+	
+	return 0;
+
+}
