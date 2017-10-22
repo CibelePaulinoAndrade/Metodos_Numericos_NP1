@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+//derivada[i-1]*(pow(raiz,i));
+
+float Fp1(float x0,float p1[],int g){//calcula o f de p1
+	int i;
+	float soma=0;
+	for(i=g;i>=0;i--){
+			soma = soma + p1[i]*(pow(x0,i));						
+	}
+	printf("%f",soma);
+}
+
+float Fderivada(float x0,float p1[],int g){//calcula o f da derivada de p1
+	int i;
+	float soma=0;
+	float derivada[10];
+		for(i=g;i>0;i--){//calculo da derivada
+		derivada[i]=p1[i]*i;	
+	}
+	for(i=g;i>0;i--){
+			soma = soma + derivada[i]*(pow(x0,i));						
+	}
+	printf("%f\n",soma);
+}
+
+int main(){
+	float p1[10];
+	float n; //número dos coeficientes;
+	int i,j; //contadores
+	int g; //grau do polinômio que será escaneado para determinar o tamanho do vetor;
+	float x0; //uma raiz hipotético
+
+	
+	printf("Qual o grau do polinomio que deseja:  ",g);
+	scanf("%d",&g);
+	for(i=g;i>=0;i--){
+		printf("Digite o coeficiente do termo de indice %d:   ",i,n);
+		scanf("%f",&n);		
+		p1[i]=n;
+	}
+	
+	printf(". Utilizando o limite superior do intervalo onde se encontram as raizes positivas ,determine uma  aproximação inicial para x0: ", x0 );
+	scanf("%f",&x0);
+	
+	 Fderivada(x0,p1,g);
+	
+	 Fp1(x0,p1,g);
+
+return 0;
+}
