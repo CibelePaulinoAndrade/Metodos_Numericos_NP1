@@ -2,34 +2,78 @@
 #include<stdlib.h>
 #include<string.h>
 #include<locale.h>
-//1º Exercício-programa de Métodos Numéricos
+//1� Exercicio-programa de Metodos Numericos
 //Prof. Glauber Cintra
 //Equipe: Cibele Paulino, Narcelio Lima, Gabriel Leal, Raimundo.
 
-//Começa tópico 1 - Conversão
+
+void esperar_comando(){
+	char entradaChr;
+	printf("Digite qualquer letra para voltar ao menu inicial:\n");
+	scanf(" %c", &entradaChr);
+	
+}
+//Comeca topico 1 - Conversao
 void conversao(){
-	printf("Conversão\n");
+	printf("Convers�o\n");
 	esperar_comando();
 	chamar_menu();
 }
-//Termina tópico 1 - Conversão
+//Termina topico 1 - Conversao
 
-//Começa tópico 2 - Sistema Linear 
-int verifica_linha(int i,int j,double M[i][j]){
-	/*Sendo i a linha e j a coluna, o método soma |aij| se i!=j, caso seja igual ele pula para a proxima interação
-	, ao final do programa ele retorna um valor 1 caso o critério das linhas seja satisfeito, e 0 caso não haja satisfação do critério.*/
+//Comeca topico 2 - Sistema Linear 
+typedef struct sistema_linear {
+	int val;
+	double **sistema;
+}Sistema;
+
+Sistema ler_entrada (){
+	FILE *arq;
+	Sistema sis;
+	char arquivo[20];
+	int linha;
+	int coluna;
+	
+	printf("Digite o nome do arquivo desejado: \n");
+	scanf("%s", &arquivo);
+	arq = fopen(arquivo, "r");
+	
+	if(arq == NULL){
+		printf("\nDesculpe\nArquivo nao encontrado.\n\n");
+		esperar_comando();
+		chamar_menu();
+	}
+	
+	fscanf(arq, " %d", &sis.val);
+	
+	sis.sistema = malloc(sis.val * sizeof(double*));
+
+	for ( linha = 0; linha<sis.val; linha++){
+		sis.sistema[linha] = malloc((sis.val+1) * sizeof(double));
+		for ( coluna = 0; coluna<sis.val+1; coluna++){
+			fscanf(arq, " %lf", &sis.sistema[linha][coluna]);
+		}
+	}
+	
+	fclose(arq);
+	return sis;
+}
+
+int verifica_linha(int i,int j,double sistema[i][j]){
+	//Sendo i a linha e j a coluna, o metodo soma |aij| se i!=j, caso seja igual ele pula para a proxima interacao, ao final do programa 
+	//ele retorna um valor 1 caso o criterio das linhas seja satisfeito, e 0 caso nao haja satisfacao do criterio.
 	int n=i;
 	i=0;
 	j=0;
-	double somatorio = 0; // variável para acumular os valores de |aij|
+	double somatorio = 0;                                                                  // variavel para acumular os valores de |aij|
 	
 	while(1){
 		if(i!=j){
-			somatorio += abs(M[i][j]);
+			somatorio += abs(sistema[i][j]);
 		}
 		if(j==n-1){
-			if(abs(M[i][i])<=somatorio){ 	//Verifica se o |aii|>somatorio, caso não seja em algumas das linhas ele já quebra o laço pois já não satisfaz
-				return 0;		// o critério das linhas.
+			if(abs(sistema[i][i])<=somatorio){                                           //Verifica se o |aii|>somatorio, caso nao seja em algumas das  
+				return 0;		                                                         //linhas ele ja quebra o laco pois ja nao satisfaz o criterio das linhas.
 			}
 			else if(i==n-1){
 				return 1;
@@ -46,21 +90,21 @@ int verifica_linha(int i,int j,double M[i][j]){
 	}
 }//fim verifica_linha
 	
-int verifica_coluna(int i,int j,double M[i][j]){
-	/*Sendo i a linha e j a coluna, o método soma |aij| se i!=j, caso seja igual ele pula para a proxima interação
-	, ao final do programa ele retorna um valor 1 caso o critério das colunas seja satisfeito, e 0 caso não haja satisfação do critério.*/
+int verifica_coluna(int i,int j,double sistema[i][j]){
+	//Sendo i a linha e j a coluna, o metodo soma |aij| se i!=j, caso seja igual ele pula para a proxima interacao, ao final do programa 
+	//ele retorna um valor 1 caso o criterio das colunas seja satisfeito, e 0 caso nao haja satisfacao do criterio.
 	int n=i;
 	i=0;
 	j=0;
-	double somatorio = 0; // variável para acumular os valores de |aij|
+	double somatorio = 0;                                                                 // variavel para acumular os valores de |aij|
 	
 	while(1){
 		if(i!=j){
-			somatorio += abs(M[i][j]);
+			somatorio += abs(sistema[i][j]);
 		}
 		if(i==n-1){
-			if(abs(M[j][j])<=somatorio){		//Verifica se o |ajj|>somatorio, caso não seja em algumas das colunas ele já quebra o laço pois já não satisfaz
-				return 0;						// o critério das colunas.
+			if(abs(sistema[j][j])<=somatorio){		                                     //Verifica se o |ajj|>somatorio, caso nao seja em algumas das colunas
+				return 0;						                                         // ele ja quebra o laco pois ja nao satisfaz o criterio das colunas.
 			}
 			else if(j==n-1){
 				return 1;
@@ -78,9 +122,9 @@ int verifica_coluna(int i,int j,double M[i][j]){
 }//fim verifica_coluna
 
 double gauss_seidel(int indice, double *multiplicadores, double *valores, int tamVal ){
-	//Função que recebe o indice (variavél) a ser calculado(da), o endereço de um vetor com os valores de vetor[i], o endereço de um vetor 
-	//com os valores atuais das variavéis e um inteiro com o número de variavéis. Calcula o valor das variavéis utilizando o método interativo 
-	//para resolução de sistemas de equações lineares de Gauss-Seidel. Retorna o valor obtido.
+	//Funcao que recebe o indice (variavel) a ser calculado(da), o endereco de um vetor com os valores de vetor[i], o endereco de um vetor 
+	//com os valores atuais das variaveis e um inteiro com o numero de variaveis. Calcula o valor das variaveis utilizando o metodo interativo 
+	//para resolucao de sistemas de equacoes lineares de Gauss-Seidel. Retorna o valor obtido.
 	int i;
 	double result;
 	result = 0.0;
@@ -95,10 +139,10 @@ double gauss_seidel(int indice, double *multiplicadores, double *valores, int ta
 }
 
 int controle_parada_sistema(int val, double *estAtual, double *estAnterior, int interacoes){
-	//Função que recebe um inteiro referente ao número de variavéis do sistema, o endereço de um vetor com os valores atuais das variavéis,
-	//o endereço de um vetor com os valores anteriores das variavéis e um inteiro com o número de interações que já foram executadas. Verifica se
-	//a variação no valor das variavéis é menor que 10^(-8) ou se 1000 interações já foram executas. Retorna 1 (um) caso as uma das condições 
-	//anteriores seja satisfeita e, 0 (zero), caso contrário.
+	//Funcao que recebe um inteiro referente ao numero de variaveis do sistema, o endereco de um vetor com os valores atuais das variaveis,
+	//o endereco de um vetor com os valores anteriores das variaveis e um inteiro com o numero de interacoes que ja foram executadas. Verifica se
+	//a variacao no valor das variaveis e menor que 10^(-8) ou se 1000 interacoes ja foram execudatas. Retorna 1 (um) caso as uma das condicoes 
+	//anteriores seja satisfeita e, 0 (zero), caso contrario.
 	int i;
 	int controle = 0;
 	for(i=0;i<val;i++){
@@ -115,9 +159,9 @@ int controle_parada_sistema(int val, double *estAtual, double *estAnterior, int 
 }
 
 void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
-	//Função que recebe o endereço de um vetor com os valores atuais das variavéis, um inteiro com o número de interações que foram 
-	//executadas e um inteiro referente ao número de variavéis do sistema. Imprime na tela os valores obtidos para cada variavél e o
-	//número de interações realizadas.
+	//Funcao que recebe o endereco de um vetor com os valores atuais das variaveis, um inteiro com o numero de interacoes que foram 
+	//executadas e um inteiro referente ao numero de variaveis do sistema. Imprime na tela os valores obtidos para cada variavel e o
+	//numero de interacoes realizadas.
 	int i;
 	system("cls");
 	printf("Resultado:\n");
@@ -127,48 +171,31 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 	printf("\n%d iteracoes realizadas\n\n", interacoes);
 }
 void sistema_linear(){
-	//Função que lê um arquivo de texto contendo um sistema linear de n equações e n variavéis. Aloca os valores nas variavéis adequadas.
-	//Chama a função para calcular o valor das váriavéis do sistema e a função para imprimir os valores obtidos na tela.
+	//Funcao que le um arquivo de texto contendo um sistema linear de n equacoes e n variaveis. Aloca os valores nas variaveis adequadas.
+	//Chama a funcao para calcular o valor das variaveis do sistema e a funcao para imprimir os valores obtidos na tela.
 	FILE *arq;
 	char arquivo[20];
 	int interacoes = 0;
-	int val;
 	int i;
-	int j;
 	int sair = 1;
 	
-	printf("Digite o nome do arquivo desejado: \n");
-	scanf("%s", &arquivo);
-	arq = fopen(arquivo, "r");
+	Sistema sis;
 	
-	if(arq == NULL){
-		printf("Arquivo não encontrado");
-		return ;
-	}
+	sis = ler_entrada ();
 	
-	fscanf(arq, " %d", &val);
-	double vetor [val][val+1];
+	//int criterioLinha = verifica_linha(sis.val,sis.val+1,sis.sistema);
+	//int criterioColuna = verifica_coluna(sis.val,sis.val+1,sis.sistema);
+	//printf("%d %d\n", criterioLinha, criterioColuna);
+	//if((criterioLinha == 0) && (criterioColuna == 0)){
+	//	printf("O sistema n�o satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
+	//	esperar_comando();
+	//	chamar_menu();
+	//}
 	
-	for ( i = 0; i<val; i++){
-		for ( j = 0; j<val+1; j++){
-			fscanf(arq, " %lf", &vetor[i][j]);
-		}
-	}
-	fclose(arq);
+	double estAtual[sis.val];
+	double estAnterior [sis.val];
 	
-	int criterioLinha = verifica_linha(val,val+1,vetor);
-	int criterioColuna = verifica_coluna(val,val+1,vetor);
-	if(criterioLinha==0&&criterioColuna==0){
-		printf("Nenhum dos criterios foram satisfeitos");
-		return ;
-	}
-	
-	printf("Um dos criterios foram satisfeitos");
-	
-	double estAtual[val];
-	double estAnterior [val];
-	
-	for (i=0; i<val; i++){
+	for (i=0; i<sis.val; i++){
 		estAtual[i]=0.0;
 		estAnterior[i]=0.0;
 	}
@@ -176,67 +203,57 @@ void sistema_linear(){
 	while(sair){
 		double resultado;
 		interacoes++;
-		for (i=0;i<val;i++){
-			resultado = gauss_seidel(i, vetor[i], estAtual, val);
+		for (i=0;i<sis.val;i++){
+			resultado = gauss_seidel(i, sis.sistema[i], estAtual, sis.val);
 			estAnterior[i] = estAtual[i];
 			estAtual[i]= resultado;
 		}
-		if ((controle_parada_sistema(val, estAtual, estAnterior, interacoes)) == 1){
+		if ((controle_parada_sistema(sis.val, estAtual, estAnterior, interacoes)) == 1){
 			sair = 0;
 		}
 	}
 	
-	imprime_resultado_sistema(estAtual, interacoes, val);
+	imprime_resultado_sistema(estAtual, interacoes, sis.val);
 	
 	esperar_comando();
 	chamar_menu();
 	
 }
-//Termina tópico 2 - Sistemas Lineares
+//Termina topico 2 - Sistemas Lineares
 
-//Começa tópico 3 - Equação algébrica
+//Comeca topico 3 - Equacao algebrica
 void equacao_algebrica(){
-	printf("Equação Algebrica\n");
+	printf("Equa��o Algebrica\n");
 	
 	esperar_comando();
 	chamar_menu();
 }
-//Termina tópico 3 - Equação algébrica
+//Termina topico 3 - Equacao algebrica
 
-void esperar_comando(){
-	char entradaChr;
-	printf("Digite qualquer letra para voltar ao menu inicial:\n");
-	scanf(" %c", &entradaChr);
-	
-}
 void chamar_menu(){
-	//Função chama o menu da aplicação, solicita a opção desejada, ler a opção escolhida pelo usuário e 
-	//direciona para essa opção através do switch case.
+	//Funcao chama o menu da aplicacao, solicita a opcao desejada, ler a opcao escolhida pelo usuario e 
+	//direciona para essa opcao atraves do switch case.
 	char entradaChr;
 	
 	system("cls");
 	setlocale(LC_ALL, "Portuguese");
 	
 	printf("Menu Principal\n");
-	printf("C - Conversão\nS - Sistema Linear\nE - Equação Algébrica\nF - Finalizar\n");
+	printf("C - Conversao\nS - Sistema Linear\nE - Equacao Algebrica\nF - Finalizar\n");
 	scanf (" %c", &entradaChr);                                                               
 
 	switch (entradaChr){
 		case 'C':
-		case 'c':
 			conversao();
 			break;
 		case 'S':
-		case 's':
 			sistema_linear();
 			break;
 		case 'E':
-		case 'e':
 			equacao_algebrica();
 			break;
-		case 'F': 
-		case 'f':
-			printf("Até logo\n");
+		case 'F':
+			printf("Ate logo\n");
 			break;
 		default:
 			printf("Alternativa inválida.");
