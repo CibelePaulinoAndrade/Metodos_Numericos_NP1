@@ -13,6 +13,7 @@ void esperar_comando(){
 	scanf(" %c", &entradaChr);
 	
 }
+
 //Comeca topico 1 - Conversao
 void conversao(){
 	printf("Conversão\n");
@@ -23,11 +24,15 @@ void conversao(){
 
 //Comeca topico 2 - Sistema Linear 
 typedef struct sistema_linear {
+	//Struct para guardar e agrupar os dados colhidos do arquivo.
 	int val;
 	double **sistema;
 }Sistema;
 
 Sistema ler_entrada (){
+	//Funcao do tipo Sistema que não recebe nenhum dado. Devera pedir o nome de um arquivo de texto contendo um sistema linear de n equações e n variáveis.
+	//Caso o nome fornecido seja inválido, retorna uma mensagem de erro, caso contrário aloca os dados em seus respectivos locais. Retorna uma struct do 
+	//tipo Sistema contendo a matriz estendida correspondente ao sistema e um inteiro com o numero de variaveis.
 	FILE *arq;
 	Sistema sis;
 	char arquivo[20];
@@ -39,7 +44,7 @@ Sistema ler_entrada (){
 	arq = fopen(arquivo, "r");
 	
 	if(arq == NULL){
-		printf("\nDesculpe\nArquivo nao encontrado.\n\n");
+		printf("\nDesculpe.\nArquivo nao encontrado.\n\n");
 		esperar_comando();
 		chamar_menu();
 	}
@@ -148,11 +153,11 @@ int controle_parada_sistema(int val, double *estAtual, double *estAnterior, int 
 	int i;
 	int controle = 0;
 	for(i=0;i<val;i++){
-			if((estAtual[i]-estAnterior[i])< 0.00000001){
+			if((estAtual[i]-estAnterior[i])< 0.00000001){                                                               
 				controle++;
 			}
 		}
-		if(controle==val || interacoes == 1000 ){
+		if(controle==val || interacoes == 1000 ){                                                                     
 			return 1;
 		}
 		else{
@@ -173,14 +178,15 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 	printf("\n%d iteracoes realizadas\n\n", interacoes);
 }
 void sistema_linear(){
-	//Funcao que le um arquivo de texto contendo um sistema linear de n equacoes e n variaveis. Aloca os valores nas variaveis adequadas.
-	//Chama a funcao para calcular o valor das variaveis do sistema e a funcao para imprimir os valores obtidos na tela.
-	FILE *arq;
-	char arquivo[20];
+	//Funcao que chama a funcao que le um arquivo de texto contendo um sistema linear de n equacoes e n variaveis e aloca os valores na matriz sistema.
+	//Chama as funcoes para verificacao do critio das linhas e do criterio das colunas. Caso o sistema satisfaça pelo menos um dos criterios ele continua e 
+	//chama a funcao para calcular o valor das variaveis do sistema e a funcao para imprimir os valores obtidos na tela; e caso contrario retorna 
+	//uma mensagem avisando que os criterios não foram cumpridos. 
+	
+	
 	int interacoes = 0;
 	int i;
-	int sair = 1;
-	
+	int finalizar = 1;
 	Sistema sis;
 	
 	sis = ler_entrada ();
@@ -193,16 +199,16 @@ void sistema_linear(){
 		esperar_comando();
 		chamar_menu();
 	}
-	
+
 	double estAtual[sis.val];
 	double estAnterior [sis.val];
 	
 	for (i=0; i<sis.val; i++){
-		estAtual[i]=0.0;
-		estAnterior[i]=0.0;
+		estAtual[i]= 0.0;
+		estAnterior[i]= 0.0;
 	}
 	
-	while(sair){
+	while(finalizar){
 		double resultado;
 		interacoes++;
 		for (i=0;i<sis.val;i++){
@@ -211,7 +217,7 @@ void sistema_linear(){
 			estAtual[i]= resultado;
 		}
 		if ((controle_parada_sistema(sis.val, estAtual, estAnterior, interacoes)) == 1){
-			sair = 0;
+			finalizar = 0;
 		}
 	}
 	
@@ -258,7 +264,7 @@ void chamar_menu(){
 			printf("Ate logo\n");
 			break;
 		default:
-			printf("Alternativa invÃ¡lida.");
+			printf("Alternativa invalida.");
 			esperar_comando();
 			chamar_menu();
 	}
