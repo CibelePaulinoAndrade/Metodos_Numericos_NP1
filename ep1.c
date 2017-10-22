@@ -1,11 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 #include<string.h>
 #include<locale.h>
 //1º Exercicio-programa de Metodos Numericos
 //Prof. Glauber Cintra
 //Equipe: Cibele Paulino, Narcelio Lima, Gabriel Leal, Raimundo.
-
 
 void esperar_comando(){
 	char entradaChr;
@@ -15,8 +15,78 @@ void esperar_comando(){
 }
 
 //Comeca topico 1 - Conversao
+void converter(double numero,int base){
+	//Recebe um numero para converter, e uma base da qual sera convertida, de posse do primeiro valor 
+	//resto da parte inteira, ele fara sucessivas divisôes pela base ate não ser mais possível dividir, depois, para
+	//a parte fracionaria ele fara sucessivas multiplicaçoes pela base, até o valor fracionario ultrapassar
+	//a 15° casa decinal (infinitas interações) ou o valor do fracionario ser 0.0.
+	
+	
+	char vetorvalorhexa[6]={'A','B','C','D','E','F'}; 	//Vetor para conversão de int para hexa
+	int vetorInt[32];						//Vetores para guardar posições dos bits
+	int vetorFrac[32];	
+	int aux;							//Variavel auxiliar
+	int fimvetor1=0;					//Variaveis para definir o fim dos vetores
+	int fimvetor2=0;
+	int inteiro = abs((int)numero);					//Variavel guarda o módulo parte inteira
+	double fracionaria = fabs(numero) - inteiro;	//Variavel guarda o módulo da parte fracionaria
+	
+	vetorInt[fimvetor1] = inteiro%base;			//Recolhe o ultimo valor base inteiro.
+	fimvetor1++;
+	while(inteiro>=base){						//Para recolher a parte inteira,
+		inteiro /= base;						//faz sucessivas divisões ate preencher o vetor, e definindo um limite para varre-lo,
+		vetorInt[fimvetor1] = inteiro%base;		//e para quando não houver mais como dividir.
+		fimvetor1++;	
+	}
+	
+	while(!(fracionaria==0.0)&&fimvetor2<15){
+		fracionaria *= base;						//Para recolher a parte fracinária.
+		vetorFrac[fimvetor2] = (int)fracionaria;	//faz sucessivas multiplicacoes ate preencher o vetor, e definindo um limite para varre-lo,
+		fracionaria -= (int)fracionaria;			//e para quando não houver mais como multiplicar, ou quando o limite for igual a 15,
+		fimvetor2++;
+	}
+	
+	if(numero<0){
+		printf("(1)");
+	}
+	for(aux=fimvetor1-1;aux>=0;aux--){							//Varre o vetor de fimvetor1-1 até 0
+		if(vetorInt[aux]>9){									//Se houver numeros acima de 9, printa uma letra representante do numero
+			printf("%c",vetorvalorhexa[vetorInt[aux]-10]);		//hexadecimal
+		}
+		else{
+			printf("%d",vetorInt[aux]);
+		}
+	}
+	if(numero-(int)numero!=0.0){								//Se houver valor fracionário varre de 0 ate fimvetor2-1
+		printf(".");							
+		for(aux=0;aux<=fimvetor2-1;aux++){
+			if(vetorFrac[aux]>9){								//Se houver numeros acima de 9, printa uma letra representante do numero
+				printf("%c",vetorvalorhexa[vetorFrac[aux]-10]); //hexadecimal
+			}
+			else{
+				printf("%d",vetorFrac[aux]);
+			}
+		}
+	}
+	printf("\n");
+}
+
 void conversao(){
-	printf("Conversão\n");
+	double numero;
+	
+	printf("Conversao\n");
+	printf("Digite um valor para converter (usar virgula caso não seja inteiro)\n");
+	scanf(" %lf",&numero);
+	
+	system("cls");
+	printf("Primeiro valor indicativo de sinal, se for 0 (positivo) nao imprime\n");
+	printf("Binario: ");
+	converter(numero,2);
+	printf("Octal: ");
+	converter(numero,8);
+	printf("Hexadecimal: ");
+	converter(numero,16);
+	
 	esperar_comando();
 	chamar_menu();
 }
