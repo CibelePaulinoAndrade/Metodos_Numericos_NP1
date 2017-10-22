@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<locale.h>
-//1∫ Exercicio-programa de Metodos Numericos
+//1¬∫ Exercicio-programa de Metodos Numericos
 //Prof. Glauber Cintra
 //Equipe: Cibele Paulino, Narcelio Lima, Gabriel Leal, Raimundo.
 
@@ -16,7 +16,7 @@ void esperar_comando(){
 
 //Comeca topico 1 - Conversao
 void conversao(){
-	printf("Convers„o\n");
+	printf("Convers√£o\n");
 	esperar_comando();
 	chamar_menu();
 }
@@ -30,8 +30,8 @@ typedef struct sistema_linear {
 }Sistema;
 
 Sistema ler_entrada (){
-	//Funcao do tipo Sistema que n„o recebe nenhum dado. Devera pedir o nome de um arquivo de texto contendo um sistema linear de n equaÁıes e n vari·veis.
-	//Caso o nome fornecido seja inv·lido, retorna uma mensagem de erro, caso contr·rio aloca os dados em seus respectivos locais. Retorna uma struct do 
+	//Funcao do tipo Sistema que n√£o recebe nenhum dado. Devera pedir o nome de um arquivo de texto contendo um sistema linear de n equa√ß√µes e n vari√°veis.
+	//Caso o nome fornecido seja inv√°lido, retorna uma mensagem de erro, caso contr√°rio aloca os dados em seus respectivos locais. Retorna uma struct do 
 	//tipo Sistema contendo a matriz estendida correspondente ao sistema e um inteiro com o numero de variaveis.
 	FILE *arq;
 	Sistema sis;
@@ -64,66 +64,64 @@ Sistema ler_entrada (){
 	return sis;
 }
 
-int verifica_linha(int i, double** sistema){
-	//Sendo i a linha e j a coluna, o metodo soma |aij| se i!=j, caso seja igual ele pula para a proxima interacao, ao final do programa 
+int verifica_linha(int n, double **sistema){
+	//O metodo soma |a[linha][coluna]| se linha!=coluna, caso seja igual ele pula para a proxima interacao, ao final do programa 
 	//ele retorna um valor 1 caso o criterio das linhas seja satisfeito, e 0 caso nao haja satisfacao do criterio.
-	int n=i;
-	int j=0;
-	i=0;
+	int linha=0;
+	int coluna=0;
 	
-	double somatorio = 0;                                                                  // variavel para acumular os valores de |aij|
+	double somatorio = 0;                                                      // variavel para acumular os valores de |a[linha][coluna]|
 	
 	while(1){
-		if(i!=j){
-			somatorio += abs(sistema[i][j]);
+		if(linha!=coluna){
+			somatorio += abs(sistema[linha][coluna]);
 		}
-		if(j==n-1){
-			if(abs(sistema[i][i])<=somatorio){                                           //Verifica se o |aii|>somatorio, caso nao seja em algumas das  
-				return 0;		                                                         //linhas ele ja quebra o laco pois ja nao satisfaz o criterio das linhas.
+		if(coluna==n-1){
+			if(abs(sistema[linha][linha])<=somatorio){                        //Verifica se o |a[linha][linha]|<=somatorio, caso ele seja em algumas das  
+				return 0;		                                              //linhas ele ja quebra o laco pois ja nao satisfaz o criterio das linhas.
 			}
-			else if(i==n-1){
-				return 1;
+			else if(linha==n-1){											  //Se ele finalizar todas as interacoes, ele retorna o valor
+				return 1;													  //aprovando o criterio.
 			}
 			else{
-				i++;
+				linha++;													//Se prepara para a proxima interacao de linha.
 				somatorio = 0;
-				j=0;
+				coluna=0;
 			}
 		}
 		else{
-			j++;
+			coluna++;
 		}
 	}
 }//fim verifica_linha
 	
-int verifica_coluna(int i, double** sistema){
-	//Sendo i a linha e j a coluna, o metodo soma |aij| se i!=j, caso seja igual ele pula para a proxima interacao, ao final do programa 
+int verifica_coluna(int n, double **sistema){
+	//O metodo soma |a[linha][coluna]| se linha!=coluna, caso seja igual ele pula para a proxima interacao, ao final do programa 
 	//ele retorna um valor 1 caso o criterio das colunas seja satisfeito, e 0 caso nao haja satisfacao do criterio.
-	int n=i;
-	int j=0;
-	i=0;
+	int linha=0;
+	int coluna=0;
 	
-	double somatorio = 0;                                                                 // variavel para acumular os valores de |aij|
+	double somatorio = 0;                                                  // variavel para acumular os valores de |a[linha][coluna]|
 	
 	while(1){
-		if(i!=j){
-			somatorio += abs(sistema[i][j]);
+		if(linha!=coluna){
+			somatorio += abs(sistema[linha][coluna]);
 		}
-		if(i==n-1){
-			if(abs(sistema[j][j])<=somatorio){		                                     //Verifica se o |ajj|>somatorio, caso nao seja em algumas das colunas
-				return 0;						                                         // ele ja quebra o laco pois ja nao satisfaz o criterio das colunas.
+		if(linha==n-1){
+			if(abs(sistema[coluna][coluna])<=somatorio){		            //Verifica se o |a[coluna][coluna]|>somatorio, caso nao seja em algumas das  
+				return 0;						                           // ele ja quebra o laco pois ja nao satisfaz o criterio das colunas.
 			}
-			else if(j==n-1){
-				return 1;
+			else if(coluna==n-1){											//Se ele finalizar todas as interacoes, ele retorna o valor
+				return 1;													//aprovando o criterio.
 			}
 			else{
-				j++;
+				coluna++;												   //Se prepara para a proxima interacao de coluna.
 				somatorio = 0;
-				i=0;
+				linha=0;
 			}
 		}
 		else{
-			i++;
+			linha++;
 		}
 	}
 }//fim verifica_coluna
@@ -179,9 +177,9 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 }
 void sistema_linear(){
 	//Funcao que chama a funcao que le um arquivo de texto contendo um sistema linear de n equacoes e n variaveis e aloca os valores na matriz sistema.
-	//Chama as funcoes para verificacao do critio das linhas e do criterio das colunas. Caso o sistema satisfaÁa pelo menos um dos criterios ele continua e 
+	//Chama as funcoes para verificacao do critio das linhas e do criterio das colunas. Caso o sistema satisfa√ßa pelo menos um dos criterios ele continua e 
 	//chama a funcao para calcular o valor das variaveis do sistema e a funcao para imprimir os valores obtidos na tela; e caso contrario retorna 
-	//uma mensagem avisando que os criterios n„o foram cumpridos. 
+	//uma mensagem avisando que os criterios n√£o foram cumpridos. 
 	
 	
 	int interacoes = 0;
@@ -195,7 +193,7 @@ void sistema_linear(){
 	int criterioColuna = verifica_coluna(sis.val,sis.sistema);
 	
 	if((criterioLinha == 0) && (criterioColuna == 0)){
-		printf("O sistema n„o satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
+		printf("O sistema n√£o satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
 		esperar_comando();
 		chamar_menu();
 	}
@@ -231,7 +229,7 @@ void sistema_linear(){
 
 //Comeca topico 3 - Equacao algebrica
 void equacao_algebrica(){
-	printf("EquaÁ„o Algebrica\n");
+	printf("Equa√ß√£o Algebrica\n");
 	
 	esperar_comando();
 	chamar_menu();
