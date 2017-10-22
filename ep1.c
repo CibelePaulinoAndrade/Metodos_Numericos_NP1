@@ -59,12 +59,13 @@ Sistema ler_entrada (){
 	return sis;
 }
 
-int verifica_linha(int i,int j,double sistema[i][j]){
+int verifica_linha(int i, double** sistema){
 	//Sendo i a linha e j a coluna, o metodo soma |aij| se i!=j, caso seja igual ele pula para a proxima interacao, ao final do programa 
 	//ele retorna um valor 1 caso o criterio das linhas seja satisfeito, e 0 caso nao haja satisfacao do criterio.
 	int n=i;
+	int j=0;
 	i=0;
-	j=0;
+	
 	double somatorio = 0;                                                                  // variavel para acumular os valores de |aij|
 	
 	while(1){
@@ -90,12 +91,13 @@ int verifica_linha(int i,int j,double sistema[i][j]){
 	}
 }//fim verifica_linha
 	
-int verifica_coluna(int i,int j,double sistema[i][j]){
+int verifica_coluna(int i, double** sistema){
 	//Sendo i a linha e j a coluna, o metodo soma |aij| se i!=j, caso seja igual ele pula para a proxima interacao, ao final do programa 
 	//ele retorna um valor 1 caso o criterio das colunas seja satisfeito, e 0 caso nao haja satisfacao do criterio.
 	int n=i;
+	int j=0;
 	i=0;
-	j=0;
+	
 	double somatorio = 0;                                                                 // variavel para acumular os valores de |aij|
 	
 	while(1){
@@ -183,14 +185,14 @@ void sistema_linear(){
 	
 	sis = ler_entrada ();
 	
-	//int criterioLinha = verifica_linha(sis.val,sis.val+1,sis.sistema);
-	//int criterioColuna = verifica_coluna(sis.val,sis.val+1,sis.sistema);
-	//printf("%d %d\n", criterioLinha, criterioColuna);
-	//if((criterioLinha == 0) && (criterioColuna == 0)){
-	//	printf("O sistema não satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
-	//	esperar_comando();
-	//	chamar_menu();
-	//}
+	int criterioLinha = verifica_linha(sis.val,sis.sistema);
+	int criterioColuna = verifica_coluna(sis.val,sis.sistema);
+	
+	if((criterioLinha == 0) && (criterioColuna == 0)){
+		printf("O sistema não satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
+		esperar_comando();
+		chamar_menu();
+	}
 	
 	double estAtual[sis.val];
 	double estAnterior [sis.val];
