@@ -7,9 +7,9 @@
 //Prof. Glauber Cintra
 
 void esperar_comando(){
-	//Funcao que espera comando do usuário
+	//Funcao que espera comando do usuário.
 	char entradaChr;
-	printf("Digite qualquer letra para voltar ao menu inicial:\n");
+	printf("Digite qualquer <letra> para voltar ao menu inicial:\n");
 	scanf(" %c", &entradaChr);
 	
 }
@@ -19,8 +19,7 @@ void converter(double numero,int base){
 	//Recebe um numero para converter, e uma base da qual sera convertida, de posse do primeiro valor 
 	//resto da parte inteira, ele fara sucessivas divisoes pela base ate nao ser mais possivel dividir, depois, para
 	//a parte fracionaria ele fara sucessivas multiplicacoes pela base, ate o valor fracionario ultrapassar
-	//a 15° casa decinal (infinitas interacoes) ou o valor do fracionario ser 0.0.
-	
+	//a 15° casa decinal (infinitas interacoes) ou o valor do fracionario ser 0.
 	
 	char vetorvalorhexa[6]={'A','B','C','D','E','F'}; 	                                     //Vetor para conversao de int para hexa
 	int vetorInt[32];						                                                 //Vetores para guardar posicoes dos bits
@@ -49,19 +48,19 @@ void converter(double numero,int base){
 	if(numero<0){
 		printf("(1)");
 	}
-	for(aux=fimvetor1-1;aux>=0;aux--){							                          //Varre o vetor de fimvetor1-1 ate 0
+	for(aux=fimvetor1-1;aux>=0;aux--){							                            //Varre o vetor de fimvetor1-1 ate 0
 		if(vetorInt[aux]>9){								            	//Se houver numeros acima de 9, printa uma letra representante do numero
-			printf("%c",vetorvalorhexa[vetorInt[aux]-10]);	                             //hexadecimal
+			printf("%c",vetorvalorhexa[vetorInt[aux]-10]);	                               //hexadecimal
 		}
 		else{
 			printf("%d",vetorInt[aux]);
 		}
 	}
-	if(numero-(int)numero!=0.0){								                        //Se houver valor fracionario varre de 0 ate fimvetor2-1
+	if(numero-(int)numero!=0.0){								                          //Se houver valor fracionario varre de 0 ate fimvetor2-1
 		printf(".");							
 		for(aux=0;aux<=fimvetor2-1;aux++){
 			if(vetorFrac[aux]>9){								             //Se houver numeros acima de 9, printa uma letra representante do numero
-				printf("%c",vetorvalorhexa[vetorFrac[aux]-10]);                        //hexadecimal
+				printf("%c",vetorvalorhexa[vetorFrac[aux]-10]);                          //hexadecimal
 			}
 			else{
 				printf("%d",vetorFrac[aux]);
@@ -72,6 +71,8 @@ void converter(double numero,int base){
 }
 
 void conversao(){
+	//Funcao solicita um valor ao usuario (inteiro ou double) e retona esse numero nos sistemas binario, octal e hexadecimal.
+	//Quando o numero a ser impresso for negativo, sera acompanhado de um digito no inicio para indicar o sinal.
 	double numero;
 	
 	printf("Conversao\n");
@@ -247,9 +248,9 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 }
 void sistema_linear(){
 	//Funcao que chama a funcao que le um arquivo de texto contendo um sistema linear de n equacoes e n variaveis e aloca os valores na matriz sistema.
-	//Chama as funcoes para verificacao do criterio das linhas e do criterio das colunas. Caso o sistema satisfaÃ§a pelo menos um dos criterios ele continua e 
+	//Chama as funcoes para verificacao do criterio das linhas e do criterio das colunas. Caso o sistema satisfaca pelo menos um dos criterios ele continua e 
 	//chama a funcao para calcular o valor das variaveis do sistema e a funcao para imprimir os valores obtidos na tela; e caso contrario retorna 
-	//uma mensagem avisando que os criterios nÃ£o foram cumpridos. 
+	//uma mensagem avisando que os criterios nao foram cumpridos. 
 	
 	int interacoes = 0;
 	int i;
@@ -263,7 +264,7 @@ void sistema_linear(){
 	int criterioColuna = verifica_coluna(sis.val,sis.sistema);
 	
 	if((criterioLinha == 0) && (criterioColuna == 0)){
-		printf("O sistema não satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
+		printf("O sistema não satisfaz nem o critério das colunas nem o critério das linhas.\n\n");
 		esperar_comando();
 		chamar_menu();
 	}
@@ -305,12 +306,12 @@ typedef struct polinomio{
 }Polinomio;
 
 Polinomio ler_polinomio (){
-	//Funcao solicita o grau da equaÃ§Ã£o e os coeficientes an, an-1, ..., a0, nessa ordem. Retorna uma struct com os dados do polinomio lido.
+	//Funcao solicita o grau da equacao e os coeficientes an, an-1, ..., a0, nessa ordem. Retorna uma struct com os dados do polinomio lido.
 	
 	Polinomio pol;
 	int grau_atual;
 	
-	printf("Digite o grau do polinomio: \n");
+	printf("Digite o grau do polinômio: \n");
 	scanf(" %d", &pol.grau );
 	
 	pol.polinomio = malloc(pol.grau * sizeof(double));
@@ -320,13 +321,13 @@ Polinomio ler_polinomio (){
 		scanf(" %lf", &pol.polinomio[grau_atual]);
 		if (grau_atual==pol.grau){
 			while (pol.polinomio[grau_atual]<=0){
-				printf("\nValor invalido. O valor de a%d deve ser maior que 0 (zero).\nDigite novamente:", grau_atual);
+				printf("\nValor inválido. O valor de a%d deve ser maior que 0 (zero).\nDigite novamente:", grau_atual);
 				scanf(" %lf", &pol.polinomio[grau_atual]);
 			}
 		}
 		else if (grau_atual==0){
 			while (pol.polinomio[grau_atual]==0){
-				printf("\nValor invalido. O valor de a%d deve ser diferente de 0 (zero).\nDigite novamente:", grau_atual);
+				printf("\nValor inválido. O valor de a%d deve ser diferente de 0 (zero).\nDigite novamente:", grau_atual);
 				scanf(" %lf", &pol.polinomio[grau_atual]);
 			}
 		}
@@ -399,7 +400,7 @@ Polinomio inverte_polinomio_muda_sinal_impar (Polinomio pol){
 }
 
 double lagrange (Polinomio pol){
-	//Funcao recebe uma struct com os dados do polinomio e calcula o valor de L. Retorna o valor de L.
+	//Funcao recebe uma struct com os dados do polinomio e calcula o valor de L. Finaliza retornando o valor de L.
 	
 	int i;
 	int n = pol.grau; 
@@ -442,16 +443,15 @@ void calcular_limite_inferior(double limite3,double limite4){
 }
 
 void metodo_newton(Polinomio pol,double limite1){
-	//O mÃ©todo recebe o PolinÃ´mio base e o limite superior calculado na funÃ§Ã£o de lagrange, depois de alocado um novo polinomio
-	//ele passa os valores da derivada do polinomio base para o novo, e entÃ£o apartir de uma variavel x0 que guarda
-	//o limite superior, ele calcula f(x0) e f'(x0), que ficarÃ£o armazenadas nas variaveis soma e somaderivada
-	//respectivamente, e depois divide a soma com a somaderivada e entÃ£o subtrai com x0, que serÃ¡ atribuido
-	//a x1.
+	//O metodo recebe o Polinomio base e o limite superior calculado na funcao de lagrange, depois de alocado um novo polinomio
+	//ele passa os valores da derivada do polinomio base para o novo, e entao apartir de uma variavel x0 que guarda
+	//o limite superior, ele calcula f(x0) e f'(x0), que ficarao armazenadas nas variaveis soma e somaderivada
+	//respectivamente, e depois divide a soma com a somaderivada e entao subtrai com x0, que sera atribuido a x1.
 	
-	int i;								//variavel auxilar
+	int i;								                                                     //variavel auxilar
 	Polinomio pol_derivado;
 	pol_derivado.grau = pol.grau;
-	int grau = pol.grau;				//guarda o grau limite dos polinomios
+	int grau = pol.grau;				                                                     //guarda o grau limite dos polinomios
 	double soma=0;
 	double somaderivada=0;
 	int interacoes = 0;
@@ -460,30 +460,36 @@ void metodo_newton(Polinomio pol,double limite1){
 	
 	pol_derivado.polinomio = malloc(pol_derivado.grau * sizeof(double));
 	i = grau;
-	while(i>=1){			// passando a derivada do polinomio base para o polinomio de derivadas
+	while(i>=1){			                                  // passando a derivada do polinomio base para o polinomio de derivadas
 		pol_derivado.polinomio[i] = pol.polinomio[i]*i;
 		i--;
 	}
-	while(!(x0-x1<0.00000001)&&interacoes<1001){		//encerra quando for menor que a oitava casa decimal ou ocorrer as 1000 interacoes
-		if(interacoes!=0){								//Evitar mudar o valor na primeira interaÃ§Ã£o.
+	while(!(x0-x1<0.00000001)&&interacoes<1001){		     //encerra quando for menor que a oitava casa decimal ou ocorrer as 1000 interacoes
+		if(interacoes!=0){								     //Evitar mudar o valor na primeira interacao.
 			soma = 0;
 			somaderivada = 0;
 			x0 = x1;
 		}
-		for(i=grau; i>=0; i--){							//Calcula f(x0)
+		for(i=grau; i>=0; i--){							                                    //Calcula f(x0)
 			soma += pol.polinomio[i]*pow(x0,i);
 		}
-		for(i=grau; i>=1; i--){							//Calcula f'(x0)
+		for(i=grau; i>=1; i--){							                                    //Calcula f'(x0)
 			somaderivada += pol_derivado.polinomio[i]*pow(x0,i-1);
 		}
-		x1 = x0 - (soma/somaderivada);					//Calcula a soluÃ§Ã£o
+		x1 = x0 - (soma/somaderivada);					                                   //Calcula a solucao
 		interacoes++;
 	}
-	printf("Solucao do sistema: %9.8lf\n",x1);
-	printf("Numero de interacoes: %d\n",interacoes);
+	printf("Solução do sistema: %9.8lf\n",x1);
+	printf("Número de interações: %d\n",interacoes);
 }
 
 void equacao_algebrica(){
+	//Utilizando o Teorema de Lagrange, a funcao calcula e exibi os intervalos onde se encontram as raizes reais 
+	//negativas e as raizes reais positivas da equacao. Utilizando o limite superior do intervalo onde se encontram as raizes positivas 
+	//como aproximacao inicial (x0), a funcao determina uma aproximacao para uma raiz usando o Metodo de Newton. Para quando a 
+	//diferença (em modulo) entre duas solucoes aproximadas for menor do que 10-8 ou apos 1000 iteracoes. Exibe a solucao encontrada e o 
+	//numero de iteracaoes realizadas.
+
 	
 	printf("Equação Algébrica\n");
 	
