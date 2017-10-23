@@ -3,11 +3,11 @@
 #include<math.h>
 #include<string.h>
 #include<locale.h>
-//1¬∫ Exercicio-programa de Metodos Numericos
+//1∫ Exercicio-programa de Metodos Numericos
 //Prof. Glauber Cintra
-//Equipe: Cibele Paulino, Narcelio Lima, Gabriel Leal, Raimundo.
 
 void esperar_comando(){
+	//Funcao que espera comando do usu·rio
 	char entradaChr;
 	printf("Digite qualquer letra para voltar ao menu inicial:\n");
 	scanf(" %c", &entradaChr);
@@ -17,51 +17,51 @@ void esperar_comando(){
 //Comeca topico 1 - Conversao
 void converter(double numero,int base){
 	//Recebe um numero para converter, e uma base da qual sera convertida, de posse do primeiro valor 
-	//resto da parte inteira, ele fara sucessivas divis√¥es pela base ate n√£o ser mais poss√≠vel dividir, depois, para
-	//a parte fracionaria ele fara sucessivas multiplica√ßoes pela base, at√© o valor fracionario ultrapassar
-	//a 15¬∞ casa decinal (infinitas intera√ß√µes) ou o valor do fracionario ser 0.0.
+	//resto da parte inteira, ele fara sucessivas divisoes pela base ate nao ser mais possivel dividir, depois, para
+	//a parte fracionaria ele fara sucessivas multiplicacoes pela base, ate o valor fracionario ultrapassar
+	//a 15∞ casa decinal (infinitas interacoes) ou o valor do fracionario ser 0.0.
 	
 	
-	char vetorvalorhexa[6]={'A','B','C','D','E','F'}; 	//Vetor para convers√£o de int para hexa
-	int vetorInt[32];						//Vetores para guardar posi√ß√µes dos bits
+	char vetorvalorhexa[6]={'A','B','C','D','E','F'}; 	                                     //Vetor para conversao de int para hexa
+	int vetorInt[32];						                                                 //Vetores para guardar posicoes dos bits
 	int vetorFrac[32];	
-	int aux;							//Variavel auxiliar
-	int fimvetor1=0;					//Variaveis para definir o fim dos vetores
+	int aux;							                                                    //Variavel auxiliar
+	int fimvetor1=0;					                                                    //Variaveis para definir o fim dos vetores
 	int fimvetor2=0;
-	int inteiro = abs((int)numero);					//Variavel guarda o m√≥dulo parte inteira
-	double fracionaria = fabs(numero) - inteiro;	//Variavel guarda o m√≥dulo da parte fracionaria
+	int inteiro = abs((int)numero);					                                        //Variavel guarda o modulo parte inteira
+	double fracionaria = fabs(numero) - inteiro;	                                        //Variavel guarda o modulo da parte fracionaria
 	
-	vetorInt[fimvetor1] = inteiro%base;			//Recolhe o ultimo valor base inteiro.
+	vetorInt[fimvetor1] = inteiro%base;			                                            //Recolhe o ultimo valor base inteiro.
 	fimvetor1++;
-	while(inteiro>=base){						//Para recolher a parte inteira,
-		inteiro /= base;						//faz sucessivas divis√µes ate preencher o vetor, e definindo um limite para varre-lo,
-		vetorInt[fimvetor1] = inteiro%base;		//e para quando n√£o houver mais como dividir.
+	while(inteiro>=base){						                                            //Para recolher a parte inteira,
+		inteiro /= base;						        //faz sucessivas divisoes ate preencher o vetor, e definindo um limite para varre-lo,
+		vetorInt[fimvetor1] = inteiro%base;		                                            //e para quando nao houver mais como dividir.
 		fimvetor1++;	
 	}
 	
 	while(!(fracionaria==0.0)&&fimvetor2<15){
-		fracionaria *= base;						//Para recolher a parte fracin√°ria.
-		vetorFrac[fimvetor2] = (int)fracionaria;	//faz sucessivas multiplicacoes ate preencher o vetor, e definindo um limite para varre-lo,
-		fracionaria -= (int)fracionaria;			//e para quando n√£o houver mais como multiplicar, ou quando o limite for igual a 15,
+		fracionaria *= base;					                                         	//Para recolher a parte fracinaria.
+		vetorFrac[fimvetor2] = (int)fracionaria;     	//faz sucessivas multiplicacoes ate preencher o vetor, e definindo um limite para varre-lo,
+		fracionaria -= (int)fracionaria;		    	//e para quando nao houver mais como multiplicar, ou quando o limite for igual a 15,
 		fimvetor2++;
 	}
 	
 	if(numero<0){
 		printf("(1)");
 	}
-	for(aux=fimvetor1-1;aux>=0;aux--){							//Varre o vetor de fimvetor1-1 at√© 0
-		if(vetorInt[aux]>9){									//Se houver numeros acima de 9, printa uma letra representante do numero
-			printf("%c",vetorvalorhexa[vetorInt[aux]-10]);		//hexadecimal
+	for(aux=fimvetor1-1;aux>=0;aux--){							                          //Varre o vetor de fimvetor1-1 ate 0
+		if(vetorInt[aux]>9){								            	//Se houver numeros acima de 9, printa uma letra representante do numero
+			printf("%c",vetorvalorhexa[vetorInt[aux]-10]);	                             //hexadecimal
 		}
 		else{
 			printf("%d",vetorInt[aux]);
 		}
 	}
-	if(numero-(int)numero!=0.0){								//Se houver valor fracion√°rio varre de 0 ate fimvetor2-1
+	if(numero-(int)numero!=0.0){								                        //Se houver valor fracionario varre de 0 ate fimvetor2-1
 		printf(".");							
 		for(aux=0;aux<=fimvetor2-1;aux++){
-			if(vetorFrac[aux]>9){								//Se houver numeros acima de 9, printa uma letra representante do numero
-				printf("%c",vetorvalorhexa[vetorFrac[aux]-10]); //hexadecimal
+			if(vetorFrac[aux]>9){								             //Se houver numeros acima de 9, printa uma letra representante do numero
+				printf("%c",vetorvalorhexa[vetorFrac[aux]-10]);                        //hexadecimal
 			}
 			else{
 				printf("%d",vetorFrac[aux]);
@@ -75,11 +75,11 @@ void conversao(){
 	double numero;
 	
 	printf("Conversao\n");
-	printf("Digite um valor para converter (usar virgula caso n√£o seja inteiro)\n");
+	printf("Digite um valor para converter (usar virgula caso n„o seja inteiro)\n");
 	scanf(" %lf",&numero);
 	
 	system("cls");
-	printf("Primeiro valor indicativo de sinal, se for 0 (positivo) nao imprime\n");
+	printf("O primeiro digito È indicativo do sinal: 1 (negativo) e 0 (positivo - nesse caso o digito n„o È impresso).\n\n");
 	printf("Binario: ");
 	converter(numero,2);
 	printf("Octal: ");
@@ -100,8 +100,8 @@ typedef struct sistema_linear {
 }Sistema;
 
 Sistema ler_entrada (){
-	//Funcao do tipo Sistema que n√£o recebe nenhum dado. Devera pedir o nome de um arquivo de texto contendo um sistema linear de n equa√ß√µes e n vari√°veis.
-	//Caso o nome fornecido seja inv√°lido, retorna uma mensagem de erro, caso contr√°rio aloca os dados em seus respectivos locais. Retorna uma struct do 
+	//Funcao do tipo Sistema que nao recebe nenhum dado. Devera pedir o nome de um arquivo de texto contendo um sistema linear de n equaaces e n variaveis.
+	//Caso o nome fornecido seja invalido, retorna uma mensagem de erro, caso contrario aloca os dados em seus respectivos locais. Retorna uma struct do 
 	//tipo Sistema contendo a matriz estendida correspondente ao sistema e um inteiro com o numero de variaveis.
 	FILE *arq;
 	Sistema sis;
@@ -114,7 +114,7 @@ Sistema ler_entrada (){
 	arq = fopen(arquivo, "r");
 	
 	if(arq == NULL){
-		printf("\nDesculpe.\nArquivo nao encontrado.\n\n");
+		printf("\nDesculpe.\nArquivo n„o encontrado.\n\n");
 		esperar_comando();
 		chamar_menu();
 	}
@@ -154,7 +154,7 @@ int verifica_linha(int n, double **sistema){
 				return 1;													  //aprovando o criterio.
 			}
 			else{
-				linha++;													//Se prepara para a proxima interacao de linha.
+				linha++;													 //Se prepara para a proxima interacao de linha.
 				somatorio = 0;
 				coluna=0;
 			}
@@ -179,13 +179,13 @@ int verifica_coluna(int n, double **sistema){
 		}
 		if(linha==n-1){
 			if(abs(sistema[coluna][coluna])<=somatorio){		            //Verifica se o |a[coluna][coluna]|>somatorio, caso nao seja em algumas das  
-				return 0;						                           // ele ja quebra o laco pois ja nao satisfaz o criterio das colunas.
+				return 0;						                            // ele ja quebra o laco pois ja nao satisfaz o criterio das colunas.
 			}
 			else if(coluna==n-1){											//Se ele finalizar todas as interacoes, ele retorna o valor
 				return 1;													//aprovando o criterio.
 			}
 			else{
-				coluna++;												   //Se prepara para a proxima interacao de coluna.
+				coluna++;												    //Se prepara para a proxima interacao de coluna.
 				somatorio = 0;
 				linha=0;
 			}
@@ -216,8 +216,8 @@ double gauss_seidel(int indice, double *multiplicadores, double *valores, int ta
 int controle_parada_sistema(int val, double *estAtual, double *estAnterior, int interacoes){
 	//Funcao que recebe um inteiro referente ao numero de variaveis do sistema, o endereco de um vetor com os valores atuais das variaveis,
 	//o endereco de um vetor com os valores anteriores das variaveis e um inteiro com o numero de interacoes que ja foram executadas. Verifica se
-	//a variacao no valor das variaveis e menor que 10^(-8) ou se 1000 interacoes ja foram execudatas. Retorna 1 (um) caso as uma das condicoes 
-	//anteriores seja satisfeita e, 0 (zero), caso contrario.
+	//a variacao nos ultimos dois valores das variaveis e menor que 10^(-8) ou se 1000 interacoes ja foram execudatas. Retorna 1 (um) caso as  
+	//uma das condicoes anteriores seja satisfeita e, 0 (zero), caso contrario.
 	int i;
 	int controle = 0;
 	for(i=0;i<val;i++){
@@ -243,14 +243,13 @@ void imprime_resultado_sistema(double *estAtual ,int interacoes, int val){
 	for (i=0;i<val;i++){
 		printf("X%d: %9.3lf\n", i+1, estAtual[i]);
 	}
-	printf("\n%d iteracoes realizadas\n\n", interacoes);
+	printf("\n%d iteracıes realizadas\n\n", interacoes);
 }
 void sistema_linear(){
 	//Funcao que chama a funcao que le um arquivo de texto contendo um sistema linear de n equacoes e n variaveis e aloca os valores na matriz sistema.
-	//Chama as funcoes para verificacao do critio das linhas e do criterio das colunas. Caso o sistema satisfa√ßa pelo menos um dos criterios ele continua e 
+	//Chama as funcoes para verificacao do criterio das linhas e do criterio das colunas. Caso o sistema satisfa√ßa pelo menos um dos criterios ele continua e 
 	//chama a funcao para calcular o valor das variaveis do sistema e a funcao para imprimir os valores obtidos na tela; e caso contrario retorna 
 	//uma mensagem avisando que os criterios n√£o foram cumpridos. 
-	
 	
 	int interacoes = 0;
 	int i;
@@ -259,17 +258,18 @@ void sistema_linear(){
 	
 	sis = ler_entrada ();
 	
+	//Verifica se o sistema satisfaz o metodo da linha ou o da coluna.
 	int criterioLinha = verifica_linha(sis.val,sis.sistema);
 	int criterioColuna = verifica_coluna(sis.val,sis.sistema);
 	
 	if((criterioLinha == 0) && (criterioColuna == 0)){
-		printf("O sistema n√£o satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
+		printf("O sistema n„o satisfaz nem o criterio das colunas nem o criterio das linhas.\n\n");
 		esperar_comando();
 		chamar_menu();
 	}
 
-	double estAtual[sis.val];
-	double estAnterior [sis.val];
+	double estAtual[sis.val];                                                             //Guarda os valores atuais das variaveis
+	double estAnterior [sis.val];                                                         //Guarda os valores das variaveis obtidos na iteracao anterior 
 	
 	for (i=0; i<sis.val; i++){
 		estAtual[i]= 0.0;
@@ -299,7 +299,8 @@ void sistema_linear(){
 
 //Comeca topico 3 - Equacao algebrica
 void equacao_algebrica(){
-	printf("Equa√ß√£o Algebrica\n");
+	
+	printf("EquaÁ„o AlgÈbrica\n");
 	
 	esperar_comando();
 	chamar_menu();
@@ -311,11 +312,9 @@ void chamar_menu(){
 	//direciona para essa opcao atraves do switch case.
 	char entradaChr;
 	
-	system("cls");
-	setlocale(LC_ALL, "Portuguese");
-	
+	system("cls");	
 	printf("Menu Principal\n");
-	printf("C - Conversao\nS - Sistema Linear\nE - Equacao Algebrica\nF - Finalizar\n");
+	printf("C - Convers„o\nS - Sistema Linear\nE - Equacao AlgÈbrica\nF - Finalizar\n");
 	scanf (" %c", &entradaChr);                                                               
 
 	switch (entradaChr){
@@ -329,16 +328,17 @@ void chamar_menu(){
 			equacao_algebrica();
 			break;
 		case 'F':
-			printf("Ate logo\n");
+			printf("AtÈ logo\n");
 			break;
 		default:
-			printf("Alternativa invalida.");
+			printf("Alternativa inv·lida.");
 			esperar_comando();
 			chamar_menu();
 	}
 }
 int main (){
 	
+	setlocale(LC_ALL, "Portuguese");
 	chamar_menu();
 	
 	return 0; 
