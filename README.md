@@ -6,7 +6,7 @@ Sistema Linear - Pede o nome de um arquivo de texto contendo um sistema linear d
 
 Equação Algébrica - Calcula e exibe os intervalos onde se encontram as raizes reais negativas e positivas da equação fornecida utilizando o Teorema de Langrange. Utilizando o método de Newton, determina uma aproximação para uma raiz.
 
-## O código está em ep1.c, o resto do material é rascunho de código utilizado durante a elaboração do trabalho e arquivos auxiliares##
+## O código está em ep1.c, o resto do material é rascunho de código utilizado durante a elaboração do trabalho e arquivos auxiliares
 
 ##Trabalho desenvolvidos para a disciplina de Métodos Númericos sob orientação do profº Glauber Cintra##
 ##Equipe: Cibele Paulino, Gabriel Leal e Nárcelio Lima##
