@@ -8,5 +8,4 @@ Equação Algébrica - Calcula e exibe os intervalos onde se encontram as raizes
 
 ## O código está em ep1.c, o resto do material é rascunho de código utilizado durante a elaboração do trabalho e arquivos auxiliares
 
-##Trabalho desenvolvidos para a disciplina de Métodos Númericos sob orientação do profº Glauber Cintra##
-##Equipe: Cibele Paulino, Gabriel Leal e Nárcelio Lima##
+##Trabalho desenvolvidos para a disciplina de Métodos Númericos sob orientação do profº Glauber Cintra. Equipe: Cibele Paulino, Gabriel Leal e Nárcelio Lima##
