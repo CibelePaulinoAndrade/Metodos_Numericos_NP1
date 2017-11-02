@@ -1,4 +1,5 @@
-# Programa atividade solicitado na disciplina de Métodos Númericos. Dividida nas seguintes funções:‘C’ – Conversão, ‘S’ – Sistema Linear, ‘E’ – Equação Algébrica e ‘F’ – Finalizar
+# Programa Atividade de Métodos Númericos. 
+* Menu inicial contém:‘C’ – Conversão, ‘S’ – Sistema Linear, ‘E’ – Equação Algébrica e ‘F’ – Finalizar
 * Sob orientação do prof° Glauber Cintra
 * Equipe: Cibele Paulino, Gabriel Leal e Narcelio Lima
 
